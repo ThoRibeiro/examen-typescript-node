@@ -5,17 +5,26 @@ interface Person {
   height: number;
 }
 
-function getStatistics(): number {
-  const persons : Person[] = JSON.parse(readFileSync("./persons.json").toString());
-  let maxAge: number = 0;
+interface Statistics {
+  meanAge: number;
+  meanHeight: number;
+}
+
+function getStatistics(): Statistics {
+  const persons: Person[] = JSON.parse(readFileSync("./persons.json").toString());
+
+  let totalAge = 0;
+  let totalHeight = 0;
 
   for (const person of persons) {
-    if (person.age > maxAge) {
-      maxAge = person.age;
-    }
+    totalAge += person.age;
+    totalHeight += person.height;
   }
 
-  return maxAge;
+  const meanAge = totalAge / persons.length;
+  const meanHeight = totalHeight / persons.length;
+
+  return { meanAge, meanHeight };
 }
 
 function displayResult() {
