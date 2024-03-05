@@ -2,7 +2,8 @@ import { readFileSync } from "fs";
 
 interface Person {
   age: number;
-  height: number;
+  height?: number;
+  taille?: number;
 }
 
 interface Statistics {
