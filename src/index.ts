@@ -6,8 +6,8 @@ interface Person {
 }
 
 interface Statistics {
-  meanAge: number;
-  meanHeight: number;
+  ageMoyen: number;
+  tailleMoyenne: number;
 }
 
 function getStatistics(): Statistics {
@@ -21,10 +21,8 @@ function getStatistics(): Statistics {
     totalHeight += person.height;
   }
 
-  const meanAge = totalAge / persons.length;
-  const meanHeight = totalHeight / persons.length;
-
-  return { meanAge, meanHeight };
+  return { ageMoyen: totalAge / persons.length,
+    tailleMoyenne: totalHeight / persons.length, };
 }
 
 function displayResult() {
