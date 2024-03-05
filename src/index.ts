@@ -14,8 +14,12 @@ interface Statistics {
 function getStatistics(): Statistics | null {
   const persons: Person[] = JSON.parse(readFileSync("./persons.json").toString());
 
-  // Vérifier si le premier élément du tableau a les propriétés attendues
-  if (persons.length > 0 && !Object.hasOwnProperty.call(persons[0], 'age') && !Object.hasOwnProperty.call(persons[0], 'height')) {
+  const firstPerson = persons[0];
+  if (!firstPerson ||
+      !Object.hasOwnProperty.call(firstPerson, 'age') ||
+      !Object.hasOwnProperty.call(firstPerson, 'height') ||
+      typeof firstPerson.age !== 'number' ||
+      typeof firstPerson.height !== 'number') {
     console.error("Erreur: Les données du fichier persons.json ne sont pas correctement formées.");
     return null;
   }
@@ -31,7 +35,6 @@ function getStatistics(): Statistics | null {
       totalHeight += person.height;
     }
   }
-
 
   return {
     ageMoyen: totalAge / persons.length,
